@@ -11,17 +11,34 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { Link } from "react-router-dom";
-import { DarkModeContext } from "../../context/darkModeContext";
+
 import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../../firebase";
+import { AuthContext } from "../../context/AuthContext";
+import { DarkModeContext } from "../../context/darkModeContext";
 
 const Sidebar = () => {
-  const { dispatch } = useContext(DarkModeContext);
+  const { dispatch: darkModeDispatch } = useContext(DarkModeContext);
+
+  const navigate = useNavigate();
+  const { dispatch: authDispatch } = useContext(AuthContext);
+
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      authDispatch({ type: "LOGOUT" });
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+
   return (
     <div className="sidebar">
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">lamadmin</span>
+          <span className="logo">admin</span>
         </Link>
       </div>
       <hr />
@@ -81,19 +98,19 @@ const Sidebar = () => {
             <span>Profile</span>
           </li>
           <li>
-            <ExitToAppIcon className="icon" />
-            <span>Logout</span>
+          <ExitToAppIcon className="icon" onClick={handleLogout} />
+            <span onClick={handleLogout}>Logout</span>
           </li>
         </ul>
       </div>
       <div className="bottom">
         <div
           className="colorOption"
-          onClick={() => dispatch({ type: "LIGHT" })}
+          onClick={() => darkModeDispatch({ type: "LIGHT" })}
         ></div>
         <div
           className="colorOption"
-          onClick={() => dispatch({ type: "DARK" })}
+          onClick={() => darkModeDispatch({ type: "DARK" })}
         ></div>
       </div>
     </div>
