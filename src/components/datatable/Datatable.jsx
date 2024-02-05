@@ -1,16 +1,17 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../datatablesource";
+import { userColumns } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   collection,
-  getDocs,
   deleteDoc,
   doc,
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "../../firebase";
+import { deleteUser } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const Datatable = () => {
   const [data, setData] = useState([]);
@@ -53,12 +54,23 @@ const Datatable = () => {
 
   const handleDelete = async (id) => {
     try {
+      // Firebase Authentication'tan kullanıcıyı sil
+      const user = auth.currentUser;
+      await deleteUser(user);
+  
+      // Veritabanından belgeyi sil
       await deleteDoc(doc(db, "users", id));
-      setData(data.filter((item) => item.id !== id));
-    } catch (err) {
-      console.log(err);
+  
+      // Kullanıcı arayüzünden sili
+      setData((prevData) => prevData.filter((item) => item.id !== id));
+  
+      console.log("User deleted successfully:", id);
+    } catch (error) {
+      console.error("Error deleting user:", error.message);
     }
   };
+  
+  
 
   const actionColumn = [
     {

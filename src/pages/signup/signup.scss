@@ -1,4 +1,4 @@
-.login {
+.signup {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -112,23 +112,23 @@
   }
 }
 @media (max-width: 768px) {
-  .login{
+  .signup{
     flex-direction: column;
   }
-  .login .register-image-cont{
+  .signup .register-image-cont{
     width: 100%;
   }
-  .login .register-image-cont .register-image {
+  .signup .register-image-cont .register-image {
     width: 300px;
     height: 300px;
     } 
-    .login form {
+    .signup form {
       padding: 16px;
   }
-  .login .already{
+  .signup .already{
     margin-bottom: 16px;
   }
-  .login .already .already-btn button{
+  .signup .already .already-btn button{
     width: 80px;
     height: 25px;
     font-size: 12px;
@@ -137,13 +137,13 @@
     font-size: 25px;
   }
 
-.login form p {
+.signup form p {
   margin-bottom: 32px;
 }
 .formInput input {
   height: 30px;
 }
-.login button {
+.signup button {
   width: 120px;
   height: 30px;
   font-size: 12px;
@@ -152,7 +152,7 @@
 }
 
 @media   (min-width: 769px) and (max-width: 1024px) {
-  .login .register-image-cont .register-image {
+  .signup .register-image-cont .register-image {
     width: 350px;
     height: 350px; }
 
