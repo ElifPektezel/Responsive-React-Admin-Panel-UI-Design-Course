@@ -111,9 +111,9 @@
     pointer-events: none;
   }
 }
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   .login{
-    flex-direction: column;
+    flex-direction: column !important;
   }
   .login .register-image-cont{
     width: 100%;

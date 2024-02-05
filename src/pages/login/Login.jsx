@@ -8,7 +8,7 @@ import { AuthContext } from "../../context/AuthContext";
 import CustomSnackbar from '../../components/snackbar/SnackBar'; 
 
 const Login = () => {
-  const [error, setError] = useState(false);
+  const [ setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
